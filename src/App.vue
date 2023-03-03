@@ -43,6 +43,10 @@
   </v-app>
 </template>
 
+<style>
+@import url('@/assets/styles.css');
+</style>
+
 <script>
 
 export default {
