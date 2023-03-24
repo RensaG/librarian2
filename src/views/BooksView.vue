@@ -1,54 +1,59 @@
 <template>
-  <v-card>
-    <v-toolbar color="cyan" dark>
-      <v-toolbar-side-icon></v-toolbar-side-icon>
+  <div>
+    <v-list>
+      <v-list-item v-for="item in books" :key="item._id">
+        <v-list-item-avatar tile>
+          <v-img :src="item.img"></v-img>
+        </v-list-item-avatar>
 
-      <v-toolbar-title>Inbox</v-toolbar-title>
+        <v-list-item-content>
+          <v-list-item-title>{{ item.title }}</v-list-item-title>
+          <v-list-item-subtitle
+            >Author: {{ item.author.name }}</v-list-item-subtitle
+          >
+          <v-list-item-subtitle>Pages: {{ item.pages }}</v-list-item-subtitle>
+        </v-list-item-content>
 
-      <v-spacer></v-spacer>
-
-      <v-btn icon>
-        <v-icon>search</v-icon>
-      </v-btn>
-    </v-toolbar>
-
-    <v-list three-line>
-      <template v-for="(item, index) in items">
-        <v-subheader v-if="item.header" :key="item.header">
-          {{ item.header }}
-        </v-subheader>
-
-        <v-divider
-          v-else-if="item.divider"
-          :key="index"
-          :inset="item.inset"
-        ></v-divider>
-
-        <v-list-tile v-else :key="item.title" avatar>
-          <v-list-tile-content>
-            <v-list-tile-avatar>
-              <img :src="item.img" />
-            </v-list-tile-avatar>
-            <div>{{ item.title }}</div>
-            <div>{{ item.subtitle }}</div>
-          </v-list-tile-content>
-        </v-list-tile>
-      </template>
+        <v-list-item-icon>
+          <div>
+            <v-menu offset-y>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn v-bind="attrs" v-on="on" text>
+                  <v-icon>mdi-dots-vertical</v-icon>
+                </v-btn>
+              </template>
+              <v-list>
+                <v-list-item>
+                  <v-list-item-title>Edit </v-list-item-title>
+                  <v-icon>mdi-pencil</v-icon>
+                </v-list-item>
+                <v-list-item>
+                  <v-list-item-title>Delete </v-list-item-title>
+                  <v-icon>mdi-delete</v-icon>
+                </v-list-item>
+                <v-list-item>
+                  <v-list-item-title>Issue </v-list-item-title>
+                  <v-icon>mdi-information</v-icon>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+          </div>
+        </v-list-item-icon>
+      </v-list-item>
     </v-list>
-  </v-card>
+  </div>
 </template>
 
 
 <script>
-import bookList from "../data/books.json";
+import booksList from "@/data/books.json";
 export default {
   data() {
     return {
-      items: bookList,
+      books: booksList,
     };
   },
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
